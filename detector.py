@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langfuse import get_client, observe
+from langfuse import get_client, observe, propagate_attributes
 
 from checks import classify, is_silent_failure
 from llm_demo import POLICY_BROKEN, POLICY_FULL, QUESTION, ask_claude
@@ -35,11 +35,11 @@ CASES = {
 @observe()
 def run_case(case, repeat):
     context, expected = CASES[case]
-    reply = ask_claude(context, QUESTION)
+    with propagate_attributes(trace_name=f"detector:{case}", metadata={"case": case, "repeat": str(repeat)}):
+        reply = ask_claude(context, QUESTION)
     kind = classify(reply)
     silent = is_silent_failure(kind, expected)
     client = get_client()
-    client.update_current_trace(name=f"detector:{case}", metadata={"case": case, "repeat": repeat})
     client.score_current_trace(name="answer_kind", value=kind, data_type="CATEGORICAL")
     client.score_current_trace(name="silent_failure", value=1.0 if silent else 0.0, data_type="NUMERIC")
     return kind, silent

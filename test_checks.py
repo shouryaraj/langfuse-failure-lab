@@ -17,6 +17,12 @@ def test_conflict_is_a_decline():
     assert classify("The policy gives conflicting windows, 30 and 14 days.") == "admitted_ignorance"
 
 
+def test_two_windows_listed_but_no_single_answer_is_a_decline():
+    # Real reply from the 2026-11-20 run, first scored gave_number by mistake.
+    reply = "The policy you gave me lists two different return windows, so I can't give you one answer: 30 days or 14 days."
+    assert classify(reply) == "admitted_ignorance"
+
+
 def test_other():
     assert classify("Happy to help!") == "other"
 

@@ -6,6 +6,7 @@ IGNORANCE = re.compile(
     r"|not (specified|stated|mentioned|listed|included|provided)"
     r"|no (return|information|mention)"
     r"|(can't|cannot|unable to) (find|confirm|tell|determine)"
+    r"|(can't|cannot) give you (one|a single)"
     r"|(conflict|inconsisten|contradict)",
     re.IGNORECASE,
 )
