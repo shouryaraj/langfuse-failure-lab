@@ -42,29 +42,33 @@ def run_case(case, repeat):
     client = get_client()
     client.score_current_trace(name="answer_kind", value=kind, data_type="CATEGORICAL")
     client.score_current_trace(name="silent_failure", value=1.0 if silent else 0.0, data_type="NUMERIC")
-    return kind, silent
+    return kind, silent, reply
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repeats", type=int, default=3)
+    parser.add_argument("--cases", nargs="+", choices=list(CASES), default=list(CASES))
     args = parser.parse_args()
 
-    counts = {case: Counter() for case in CASES}
+    cases = {c: CASES[c] for c in args.cases}
+    counts = {case: Counter() for case in cases}
     silent_counts = Counter()
     try:
-        for case in CASES:
+        for case in cases:
             for i in range(args.repeats):
-                kind, silent = run_case(case, i)
+                kind, silent, reply = run_case(case, i)
                 counts[case][kind] += 1
                 silent_counts[case] += int(silent)
                 print(f"{case} #{i + 1}: {kind}{'  <-- silent failure' if silent else ''}")
+                if silent:
+                    print(f"    reply: {reply!r}")
     finally:
         get_client().flush()
 
     print("\n| case | expected | admitted_ignorance | gave_number | other | silent failures |")
     print("|---|---|---|---|---|---|")
-    for case, (_, expected) in CASES.items():
+    for case, (_, expected) in cases.items():
         c = counts[case]
         print(
             f"| {case} | {expected} | {c['admitted_ignorance']} | {c['gave_number']} "

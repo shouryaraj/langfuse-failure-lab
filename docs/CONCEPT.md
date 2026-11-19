@@ -60,6 +60,8 @@ The scorer is a plain regex on purpose. It is cheap, deterministic and easy to r
 
 The one flagged reply was the false alarm above. Read by a person, there were 0 real silent failures in this run.
 
+**Conflicting case, 10 more repeats** (after the regex fix): the script flagged 0 of 10. I read all 10 replies and each one declines ("I can't tell which one applies"), so the score and a human read agree. I had predicted 0 of 10 before running. This does not prove the model never picks one window. It is 10 replies from one model.
+
 **Scorer audit** (`python audit.py`): the regex agrees with a person on 6 of 12 hand-written replies. Most of those replies were written to fool it, so this is not an error rate for real output. It lists ways the check can fail:
 
 - Wording it does not know ("Sorry, I can't help with that" scores `other`).
@@ -73,7 +75,7 @@ Replies scored `other` are never flagged, so a miss in either direction is silen
 - One model, one question. Do not read the results as a general claim about LLMs.
 - Headless Claude Code adds its own system prompt, so these are not raw model calls, and input token counts in the traces are unreliable.
 - The regex is a starting point, not a judge.
-- In my run the model never gave a confident wrong answer in the `missing` or `conflicting` cases. That harder failure is untested.
+- Across 19 replies in the `missing` and `conflicting` cases, the model never gave a confident wrong answer. That harder failure is untested, and 19 replies is too few to say it never happens.
 
 ## Where to go next
 
