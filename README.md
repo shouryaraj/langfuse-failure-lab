@@ -17,6 +17,10 @@ A trace in Langfuse, with both scores in the header and the reply below:
 
 ![A detector:conflicting trace with answer_kind and silent_failure scores](assets/langfuse-trace-scores.png)
 
+The Scores page lists the two scores per trace. The row with `silent_failure 1.00` and `gave_number` is the false alarm: the reply declined, and the regex missed the wording.
+
+![Langfuse Scores page: answer_kind and silent_failure per trace](assets/langfuse-scores.png)
+
 ## Run it
 
 Needs Python 3.10+, the [Claude Code CLI](https://docs.claude.com/en/docs/claude-code) and a Langfuse project.
