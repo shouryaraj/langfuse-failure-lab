@@ -17,10 +17,6 @@ A trace in Langfuse, with both scores in the header and the reply below:
 
 ![A detector:conflicting trace with answer_kind and silent_failure scores](assets/langfuse-trace-scores.png)
 
-The Home dashboard counts the scores, and [a 15-second clip](assets/demo.mp4) shows new traces arriving while the detector runs.
-
-![Langfuse home: 20 traces, 38 scores](assets/langfuse-home.png)
-
 ## Run it
 
 Needs Python 3.10+, the [Claude Code CLI](https://docs.claude.com/en/docs/claude-code) and a Langfuse project.

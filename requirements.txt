@@ -1,3 +1,4 @@
 langfuse>=3
 python-dotenv
 pytest
+gymnasium

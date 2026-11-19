@@ -24,7 +24,7 @@ QUESTION = "How many days do I have to return an item?"
 
 
 @observe(as_type="generation")
-def ask_claude(context, question):
+def ask_claude(context, question, system=SYSTEM_PROMPT, model=None):
     prompt = f"{context}\n\nQuestion: {question}"
     # Neutral cwd so a project CLAUDE.md is not picked up; tools off so it is a plain model call.
     with tempfile.TemporaryDirectory() as cwd:
@@ -33,8 +33,9 @@ def ask_claude(context, question):
                 "claude", "-p", prompt,
                 "--output-format", "json",
                 "--tools", "",
-                "--system-prompt", SYSTEM_PROMPT,
+                "--system-prompt", system,
                 "--no-session-persistence",
+                *(["--model", model] if model else []),
             ],
             capture_output=True, text=True, cwd=cwd, timeout=120,
         )
