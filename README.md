@@ -11,6 +11,16 @@ A trace shows where ordinary code fails. An LLM call can fail without raising an
 3. A regex scores each reply and attaches the score to its Langfuse trace.
 4. Check the scorer against replies a person has read, because it can be wrong too.
 
+## What it looks like
+
+A trace in Langfuse, with both scores in the header and the reply below:
+
+![A detector:conflicting trace with answer_kind and silent_failure scores](assets/langfuse-trace-scores.png)
+
+The Home dashboard counts the scores, and [a 15-second clip](assets/demo.mp4) shows new traces arriving while the detector runs.
+
+![Langfuse home: 20 traces, 38 scores](assets/langfuse-home.png)
+
 ## Run it
 
 Needs Python 3.10+, the [Claude Code CLI](https://docs.claude.com/en/docs/claude-code) and a Langfuse project.
