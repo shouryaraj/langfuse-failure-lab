@@ -53,4 +53,4 @@ One model and one question, so this is not a general claim about LLMs. The check
 
 ## Run it
 
-See the repo `README.md`. The offline tests and the audit need no keys: `pytest` and `python audit.py`. For the full concept and results, see `docs/CONCEPT.md`.
+See the repo `README.md`. The offline tests and the audit need no keys: `pytest` and `python audit.py`. For the full concept and results, see `concepts/how-it-works.md`.
