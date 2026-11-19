@@ -62,4 +62,4 @@ The check is a regex, not a judge. It already misread one reply in 9, and I test
 
 See `README.md`. The offline tests need no keys: `pytest`.
 
-Repo: REPO_LINK
+Repo: https://github.com/shouryaraj/langfuse-failure-lab
